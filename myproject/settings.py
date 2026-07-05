@@ -74,8 +74,8 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 import dj_database_url
 
-if 'RENDER' in os.environ:
-    # Force Django to explicitly use the DATABASE_URL environment variable we set on Render
+# Strict Environment Parsing: If a DATABASE_URL exists, force connection over everything else
+if os.environ.get('DATABASE_URL'):
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
