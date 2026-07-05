@@ -75,9 +75,9 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 import dj_database_url
 
 if 'RENDER' in os.environ:
-    # When live on the cloud, use the PostgreSQL database URL
+    # Force Django to explicitly use the DATABASE_URL environment variable we set on Render
     DATABASES = {
-        'default': dj_database_url.config(conn_max_age=600)
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 else:
     # When coding locally on your computer, use your local MySQL server
